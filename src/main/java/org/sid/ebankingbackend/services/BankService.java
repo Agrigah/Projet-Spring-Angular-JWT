@@ -19,7 +19,7 @@ public class BankService {
             System.out.println("***************************");
             System.out.println(bankAccount.getId());
             System.out.println(bankAccount.getBalance());
-            System.out.println(bankAccount.getCreatedAT());
+            System.out.println(bankAccount.getCreatedAt());
             System.out.println(bankAccount.getStatus());
             System.out.println(bankAccount.getCustomer().getName());
             System.out.println(bankAccount.getClass().getSimpleName());
@@ -28,7 +28,7 @@ public class BankService {
             } else if (bankAccount instanceof SavingAccount) {
                 System.out.println("Rate=>" + ((SavingAccount) bankAccount).getInterestRate());
             }
-            bankAccount.getAccountOperation().forEach(op -> {
+            bankAccount.getAccountOperations().forEach(op -> {
                 System.out.println("*******************************");
                 System.out.println(op.getType() + "\t" + op.getOperationDate() + "\t" + op.getType() + "\t" + op.getAmount());
             });
