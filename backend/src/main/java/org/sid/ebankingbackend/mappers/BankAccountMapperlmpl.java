@@ -48,7 +48,6 @@ public class BankAccountMapperlmpl {
     public SavingAccountDto fromSavingAccount(SavingAccount savingAccount) {
         SavingAccountDto savingAccountDto = new SavingAccountDto();
         BeanUtils.copyProperties(savingAccount, savingAccountDto);
-        savingAccountDto.setIntrestRAte(savingAccount.getInterestRate());
 
         savingAccountDto.setCustmerDto(fromcustomer(savingAccount.getCustomer()));
         savingAccountDto.setType(savingAccount.getClass().getSimpleName());
@@ -59,7 +58,6 @@ public class BankAccountMapperlmpl {
     public SavingAccount fromSavingAccountDto(SavingAccountDto savingAccountDto) {
         SavingAccount savingAccount = new SavingAccount();
         BeanUtils.copyProperties(savingAccountDto, savingAccount);
-        savingAccount.setInterestRate(savingAccountDto.getIntrestRAte());
 
         savingAccount.setCustomer(fromcustomerDto(savingAccountDto.getCustmerDto()));
 
