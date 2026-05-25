@@ -10,30 +10,34 @@
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/customers">Customer</a>
+          <a class="nav-link" routerLink="/admin/customers">Customer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/accounts">Accounts</a>
+          <a class="nav-link" routerLink="/admin/accounts">Accounts</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Custmers
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/customers">search custmers</a></li>
-            <li><a class="dropdown-item" routerLink="/new-customer">new customer</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/customers">search custmers</a></li>
+            <li><a class="dropdown-item" *ngIf="authService.roles.includes('ADMIN')" routerLink="/admin/new-customer">new customer</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <ul class="navbar-nav mb-2 mb-lg-0" *ngIf="authService.isAuthenticated">
+        <li class="nav-item">
+          <span class="nav-link fw-bold">{{ authService.uaername }}</span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-danger" (click)="handleLogout()">Logout</button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

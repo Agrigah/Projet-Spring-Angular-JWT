@@ -42,7 +42,7 @@
                                             {{ customer.email }}
                                         
                                     </td>
-                                    <td>
+                                    <td *ngIf="authService.roles.includes('ADMIN')">
                                         <button class="btn btn-danger" (click)="handleDeleteCustomer(customer.id)">
                                             <i class="bi-trash"></i>
                                         </button>

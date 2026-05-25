@@ -66,7 +66,7 @@ public class EbankingBackendApplication {
                     if (bankAccount instanceof SavingAccountDto){
                         accontId =((SavingAccountDto) bankAccount).getId();
                     }else {
-                        accontId = ((CurrentAccountDto)bankAccounts).getId();
+                        accontId = ((CurrentAccountDto) bankAccount).getId();
 
                     }
                     bankAccountService.credit(accontId, Math.random() * 120000, "Credit");

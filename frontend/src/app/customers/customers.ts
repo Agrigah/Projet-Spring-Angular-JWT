@@ -1,9 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CustomerService } from '../services/Customer/customers';
 import { BehaviorSubject, catchError, finalize, Observable, throwError } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../services/Auth/auth-service';
 
 @Component({
   selector: 'app-customers',
@@ -22,7 +23,9 @@ export class Customers implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +33,9 @@ export class Customers implements OnInit {
       keyword: this.formBuilder.control('')
     });
 
-    this.loadCustomers();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadCustomers();
+    }
   }
 
   loadCustomers(): void {
@@ -39,7 +44,7 @@ export class Customers implements OnInit {
 
     this.customerService.getCustomers().pipe(
       catchError((error) => {
-        this.errorMessage = error;
+        this.errorMessage = error.message || "An error occurred";
         return throwError(() => error);
       }),
       finalize(() => {
@@ -48,6 +53,9 @@ export class Customers implements OnInit {
     ).subscribe({
       next: (customers) => {
         this.customersSubject.next(customers);
+      },
+      error: (err) => {
+        console.error("Error loading customers", err);
       }
     });
   }
@@ -65,7 +73,7 @@ export class Customers implements OnInit {
 
     this.customerService.searchCustomers(keyword).pipe(
       catchError((error) => {
-        this.errorMessage = error;
+        this.errorMessage = error.message || "An error occurred";
         return throwError(() => error);
       }),
       finalize(() => {
@@ -74,6 +82,9 @@ export class Customers implements OnInit {
     ).subscribe({
       next: (customers) => {
         this.customersSubject.next(customers);
+      },
+      error: (err) => {
+        console.error("Error searching customers", err);
       }
     });
   }
