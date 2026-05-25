@@ -38,4 +38,6 @@ public interface BankAccountService {
      void saveCustmer(CustmerDto custmerDto);
 
      List<CustmerDto> listCustmers();
+
+     List<CustmerDto> searchCustmers(String keyword);
 }
