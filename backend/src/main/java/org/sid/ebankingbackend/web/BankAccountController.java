@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
 @AllArgsConstructor
 public class BankAccountController {
 
@@ -41,26 +40,4 @@ public class BankAccountController {
     ) throws BankAccountNotFoundException {
         return bankAccountService.getAccountHistory(accountId, page, size);
     }
-
-    @PostMapping("/accounts/debit")
-    public void debit(@RequestParam String accountId,
-                      @RequestParam double amount,
-                      @RequestParam String description) {
-        bankAccountService.debit(accountId, amount, description);
-    }
-
-    @PostMapping("/accounts/credit")
-    public void credit(@RequestParam String accountId,
-                       @RequestParam double amount,
-                       @RequestParam String description) {
-        bankAccountService.credit(accountId, amount, description);
-    }
-
-    @PostMapping("/accounts/transfer")
-    public void transfer(@RequestParam String accountSource,
-                         @RequestParam String accountDestination,
-                         @RequestParam double amount) {
-        bankAccountService.transfer(accountSource, accountDestination, amount);
-    }
-
 }

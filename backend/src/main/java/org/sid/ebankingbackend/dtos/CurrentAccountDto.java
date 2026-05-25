@@ -17,4 +17,6 @@ public class CurrentAccountDto extends BankAccountDto{
     private CustmerDto custmerDto ;
     private double overDraft ;
 
+    public void setType(String simpleName) {
+    }
 }

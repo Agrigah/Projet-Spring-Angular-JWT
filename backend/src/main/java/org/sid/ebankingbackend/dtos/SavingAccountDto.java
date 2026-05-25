@@ -16,4 +16,6 @@ public class SavingAccountDto extends  BankAccountDto {
     private CustmerDto custmerDto ;
     private double intrestRAte ;
 
+    public void setType(String simpleName) {
+    }
 }
